@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Rotations Overview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background-color: #eee;
+        }
+        #rotationTable {
+            display: none; /* Hide table initially */
+        }
+    </style>
+</head>
+<body>
+    <h1>Job Rotations Overview</h1>
+
+    <label for="weekSelect">Select Week:</label>
+    <select id="weekSelect" onchange="updateTable()">
+        <option value="">--Select a week--</option>
+        <option value="42">Week 42 (October 14 - October 20)</option>
+        <option value="43">Week 43 (October 21 - October 27)</option>
+        <option value="44">Week 44 (October 28 - November 3)</option>
+        <option value="45">Week 45 (November 4 - November 10)</option>
+        <option value="46">Week 46 (November 11 - November 17)</option>
+        <option value="47">Week 47 (November 18 - November 24)</option>
+        <option value="48">Week 48 (November 25 - December 1)</option>
+        <option value="49">Week 49 (December 2 - December 8)</option>
+        <option value="50">Week 50 (December 9 - December 15)</option>
+        <option value="51">Week 51 (December 16 - December 22)</option>
+        <option value="52">Week 52 (December 23 - December 29)</option>
+    </select>
+
+    <div id="rotationTable">
+        <h2>Job Rotation for Selected Week</h2>
+        <table id="table">
+            <tr>
+                <th>Name</th>
+                <th>Task</th>
+            </tr>
+            <!-- Data will be inserted here -->
+        </table>
+    </div>
+
+    <script>
+        const rotationData = {
+            42: { "Henri": "Unmapped nodes", "Rauno": "Traffic lights", "Mark": "Crossing mid-stops", "Marta": "Safety annotations", "Jihen": "Floater1", "Sahar": "Floater2" },
+            43: { "Henri": "Floater2", "Rauno": "Unmapped nodes", "Mark": "Traffic lights", "Marta": "Crossing mid-stops", "Jihen": "Safety annotations", "Sahar": "Floater1" },
+            44: { "Henri": "Floater1", "Rauno": "Floater2", "Mark": "Unmapped nodes", "Marta": "Traffic lights", "Jihen": "Crossing mid-stops", "Sahar": "Safety annotations" },
+            45: { "Henri": "Safety annotations", "Rauno": "Floater1", "Mark": "Floater2", "Marta": "Unmapped nodes", "Jihen": "Traffic lights", "Sahar": "Crossing mid-stops" },
+            46: { "Henri": "Crossing mid-stops", "Rauno": "Safety annotations", "Mark": "Floater1", "Marta": "Floater2", "Jihen": "Unmapped nodes", "Sahar": "Traffic lights" },
+            47: { "Henri": "Traffic lights", "Rauno": "Crossing mid-stops", "Mark": "Safety annotations", "Marta": "Floater1", "Jihen": "Floater2", "Sahar": "Unmapped nodes" },
+            48: { "Henri": "Floater2", "Rauno": "Traffic lights", "Mark": "Crossing mid-stops", "Marta": "Safety annotations", "Jihen": "Floater1", "Sahar": "Unmapped nodes" },
+            49: { "Henri": "Unmapped nodes", "Rauno": "Floater2", "Mark": "Traffic lights", "Marta": "Crossing mid-stops", "Jihen": "Safety annotations", "Sahar": "Floater1" },
+            50: { "Henri": "Floater1", "Rauno": "Unmapped nodes", "Mark": "Floater2", "Marta": "Traffic lights", "Jihen": "Crossing mid-stops", "Sahar": "Safety annotations" },
+            51: { "Henri": "Safety annotations", "Rauno": "Floater1", "Mark": "Unmapped nodes", "Marta": "Floater2", "Jihen": "Traffic lights", "Sahar": "Crossing mid-stops" },
+            52: { "Henri": "Crossing mid-stops", "Rauno": "Safety annotations", "Mark": "Floater1", "Marta": "Floater2", "Jihen": "Unmapped nodes", "Sahar": "Traffic lights" },
+        };
+
+        function updateTable() {
+            const week = document.getElementById('weekSelect').value;
+            const table = document.getElementById('table');
+            table.innerHTML = `
+                <tr>
+                    <th>Name</th>
+                    <th>Task</th>
+                </tr>
+            `; // Reset table content
+
+            if (week) {
+                const rotations = rotationData[week];
+                for (const name in rotations) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td>${name}</td><td>${rotations[name]}</td>`;
+                    table.appendChild(row);
+                }
+                document.getElementById('rotationTable').style.display = 'block'; // Show the table
+            } else {
+                document.getElementById('rotationTable').style.display = 'none'; // Hide the table if no week is selected
+            }
+        }
+    </script>
+</body>
+</html>
